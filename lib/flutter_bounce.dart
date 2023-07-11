@@ -8,16 +8,22 @@ class Bounce extends StatefulWidget {
   final VoidCallback onPressed;
   final Widget child;
   final Duration duration;
+  final int debounceInMilliseconds;
   // This will get the data from the pages
   // Makes sure child won't be passed as null
-  Bounce({required this.child, required this.duration, required this.onPressed});
+  Bounce({
+    required this.child,
+    required this.duration,
+    required this.onPressed,
+    this.debounceInMilliseconds = 2000,
+  });
 
   @override
   BounceState createState() => BounceState();
 }
 
 class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
-  final _debouncer = Debouncer(2000);
+  late final _debouncer = Debouncer(widget.debounceInMilliseconds);
 
   late double _scale;
 
